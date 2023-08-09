@@ -5,11 +5,11 @@ const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const AuthenticationError = require('../../exceptions/AuthenticationError');
 
-
 class UsersService {
   constructor() {
     this._pool = new Pool();
   }
+
 
   async addUser({username, password, fullname}) {
     await this.verifyNewUsername(username);
@@ -30,6 +30,7 @@ class UsersService {
     return result.rows[0].id;
   }
 
+
   async verifyNewUsername(username) {
     const query = {
       text: 'SELECT username FROM users WHERE username = $1',
@@ -45,6 +46,7 @@ class UsersService {
     }
   }
 
+
   async getUserById(userId) {
     const query = {
       text: 'SELECT id, username, fullname FROM users WHERE id = $1',
@@ -59,6 +61,7 @@ class UsersService {
 
     return result.rows[0];
   }
+
 
   async verifyUserCredential(username, password) {
     const query = {
